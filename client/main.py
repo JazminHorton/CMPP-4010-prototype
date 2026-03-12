@@ -20,7 +20,6 @@ def send_cookie():
 
 
 def main():
-    send_cookie()
     HOST = '127.0.0.1'  # The server's hostname or IP address
     PORT = 65432  # The port used by the server
 
@@ -56,6 +55,9 @@ def main():
                 elif user_input == "3" or user_input == "kill":
                     print("Killing Connection")
                     break
+
+            # TODO: setup a checker for incoming pings with data string of "gibcookie"
+            #      and return said cookie using send_cookie()
 
     except ConnectionResetError:
         print(f"Failed to connect to listening port {PORT}")

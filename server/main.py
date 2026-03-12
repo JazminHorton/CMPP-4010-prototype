@@ -4,14 +4,6 @@ from time import sleep
 import connector
 import datetime
 
-
-# TODO: move counter to own file ✅
-# TODO: add DB (txt/csv file) ✅
-# TODO: add cookie grabber? / pc fingerprint? => cant do unless its on a website <=
-# TODO: kill function ✅❔
-# TODO: {cookie, fingerprint}.py file > validate > generate > force reset
-#       using haslib? create a fake version?
-
 # Configuration
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
 PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
@@ -64,6 +56,12 @@ def handle_client(conn, addr):
                         print("SCAMMER GET SCAMMED (Speed Limit)")
                         should_ban = True
 
+                    # If the request is two thirds of the timed max ping OR two thirds the total pings allowed
+                    # Request the users cooke data to check for scammer activities
+                    if client_data.get_timed_count() == (2/3) * timed_max_pings or client_data.get_total_count() == (
+                            2/3) * total_max_pings:
+                        request_cookie(conn)
+
                 if should_ban:
                     kill_fn(conn, client_data)
                     break
@@ -92,6 +90,9 @@ def kill_fn(conn, data):
     conn.sendall(error_msg.encode())
     add_scammer_to_db(data.IP_ADDRESS)
     # conn.fuckoff
+
+def request_cookie(conn):
+    conn.sendall("gibcookie".encode())
 
 def main():
     # Start the imer

@@ -4,6 +4,7 @@ class Connector:
         self.IP_ADDRESS = ""
         self.timed_count = 0
         self.total_count = 0
+        self.cookie = None
 
     def set_ip(self, new_ip):
         self.IP_ADDRESS = new_ip
@@ -27,4 +28,7 @@ class Connector:
     def get_total_count(self):
         return self.total_count
 
-
+    def get_cookie(self):
+        return self.cookie
+    def set_cookie(self, new_cookie):
+        self.cookie = new_cookie
