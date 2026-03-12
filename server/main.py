@@ -8,7 +8,7 @@ import datetime
 # TODO: move counter to own file ✅
 # TODO: add DB (txt/csv file) ✅
 # TODO: add cookie grabber? / pc fingerprint?
-# TODO: kill function
+# TODO: kill function ✅❔
 # TODO: {cookie, fingerprint}.py file > validate > generate > force reset
 
 # Configuration
@@ -64,11 +64,7 @@ def handle_client(conn, addr):
                         should_ban = True
 
                 if should_ban:
-                    #Kill the connection from the server
-                    error_msg = "SCAMMER GET SCAMMED"
-                    conn.sendall(error_msg.encode())
-                    add_scammer_to_db(client_data.IP_ADDRESS)
-                    # conn.fuckoff
+                    kill_fn(conn, client_data)
                     break
                 else:
                     response = b"Pong"
@@ -90,6 +86,13 @@ def add_scammer_to_db(ip_address):
         # Then, write the actual content
         file.write(new_line_content)
         print("Scammer data added to db :)")
+
+def kill_fn(conn, data):
+    # Kill the connection from the server
+    error_msg = "SCAMMER GET SCAMMED"
+    conn.sendall(error_msg.encode())
+    add_scammer_to_db(data.IP_ADDRESS)
+    # conn.fuckoff
 
 def main():
     # Start the imer
