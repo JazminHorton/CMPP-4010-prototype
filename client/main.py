@@ -1,3 +1,5 @@
+import os
+import psutil
 import socket
 import time
 import uuid
@@ -87,16 +89,21 @@ def main():
                     message = "performance ping"
                     start_time = time.perf_counter()
 
+                    process = psutil.Process(os.getpid())
+                    process.cpu_percent(interval=None)
 
                     print("Starting loop")
                     for i in range(1000):
                         new_ping(message, s)
                         print(i)
 
+                    cpu_usage = process.cpu_percent(interval=None)
+
                     print("Finished loop")
                     endtime = time.perf_counter()
 
                     print(f"Performance Check for 1000 pings is {endtime - start_time:.4f} seconds.")
+                    print(f"CPU Usage during loop was {cpu_usage}%")
                     break
 
             # TODO: setup a checker for incoming pings with data string of "gibcookie"
