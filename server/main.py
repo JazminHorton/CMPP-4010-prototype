@@ -3,6 +3,7 @@ import threading
 from time import sleep
 import connector
 import datetime
+import psycopg2
 
 # Configuration
 HOST = '0.0.0.0'  # Standard loopback interface address (localhost)
@@ -90,15 +91,38 @@ def handle_client(conn, addr):
 
 
 def add_scammer_to_db(ip_address):
-    file_path = 'scammers_ips.txt'
-    date = datetime.datetime.now()
-    new_line_content = f"{ip_address}, {date}"
-
-    # Add scammer IP to database
-    with open(file_path, 'a') as file:
-        file.write('\n')
-        file.write(new_line_content)
-        print("Scammer data added to db :)")
+    #Connect to the Postgres container
+    conn = psycopg2.connect(
+        host="db", #matches the service name in docker-compose!
+        database="scalper_data",
+        user="admin",
+        password="password123"
+    )
+    
+    #Open a cursor to perform database operations
+    cursor = conn.cursor()
+    
+    #Make the table if it doesn't exist yet
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS banned_users (
+            id SERIAL PRIMARY KEY,
+            ip_address VARCHAR(50) NOT NULL,
+            ban_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    ''')
+    
+    #Insert the scammer's IP
+    cursor.execute(
+        "INSERT INTO banned_users (ip_address) VALUES (%s)", 
+        (ip_address,)
+    )
+    
+    #Save the changes and close the connection
+    conn.commit()
+    cursor.close()
+    conn.close()
+    
+    print(f"Scammer {ip_address} successfully added to Postgres DB!")
 
 def kill_fn(conn, data):
     # Kill the connection from the server

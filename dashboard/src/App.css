@@ -1,0 +1,109 @@
+/* Base Theme */
+body {
+  background-color: #f4effa; /* Soft lavender background */
+  color: #3b3543;
+  font-family: 'Georgia', serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  width: 100%;
+  margin-top: 50px;
+  padding: 30px;
+}
+
+/* Header */
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  font-size: 2.8rem;
+  color: #5c4d68;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.dashboard-header p {
+  font-style: italic;
+  color: #8c7a9c;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* The Data Table */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(162, 145, 175, 0.15);
+  border: 1px solid #e8ddf2;
+}
+
+.scammer-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.scammer-table th {
+  text-align: left;
+  padding: 15px;
+  background-color: #f9f6fc;
+  color: #5c4d68;
+  border-bottom: 2px solid #e8ddf2;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.scammer-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0eaf6;
+  color: #555;
+}
+
+.ip-cell {
+  font-weight: bold;
+  color: #8a6a9b;
+}
+
+.scammer-table tr:hover td {
+  background-color: #faf7fc;
+}
+
+/* Footer & Personal Branding */
+.dashboard-footer {
+  text-align: center;
+  margin-top: 50px;
+  color: #8c7a9c;
+  font-size: 0.9rem;
+}
+
+.footer-gif {
+  width: 60px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.chart-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 30px 30px 10px;
+  box-shadow: 0 8px 24px rgba(162, 145, 175, 0.15);
+  border: 1px solid #e8ddf2;
+  margin-bottom: 30px;
+}
+
+.chart-wrapper h2 {
+  text-align: center;
+  color: #5c4d68;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  letter-spacing: 0.5px;
+}
